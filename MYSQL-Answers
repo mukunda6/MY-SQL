@@ -6,35 +6,283 @@
 
 ## Answer
 
-MySQL is an open-source Relational Database Management System (RDBMS) used to store, manage, and retrieve data using SQL (Structured Query Language).
+MySQL is an open-source Relational Database Management System (RDBMS) used to store, manage, and retrieve data using SQL.
 
-It stores data in the form of:
-- Tables
-- Rows
-- Columns
-
-MySQL is widely used in:
-- Web applications
-- Enterprise software
-- Backend systems
-- Data-driven applications
-
-### Key Features of MySQL
-
+### Key Features
 - Open Source
 - High Performance
 - Scalability
-- Security and User Authentication
+- Security
 - ACID Compliance
 - Cross Platform Support
 - Indexing Support
-- Backup and Replication
-- Supports Multiple Storage Engines
+- Backup and Recovery
 
-### Example Query
+### Example
 
 ```sql
 SELECT * FROM students;
 ```
 
 ---
+
+# 2. What is the default port for MySQL?
+
+## Answer
+
+The default port number of MySQL is:
+
+```text
+3306
+```
+
+### Example
+
+```bash
+mysql -h localhost -P 3306 -u root -p
+```
+
+---
+
+# 3. Explain the difference between SQL and MySQL.
+
+## Answer
+
+| SQL | MySQL |
+|-----|--------|
+| SQL is a query language | MySQL is a database software |
+| Used to manage data | Used to store data |
+| Standard language | RDBMS application |
+| Commands like SELECT, INSERT | Uses SQL commands |
+
+### Example
+
+```sql
+SELECT * FROM employees;
+```
+
+---
+
+# 4. How do you see all the databases available on the MySQL server?
+
+## Answer
+
+Use:
+
+```sql
+SHOW DATABASES;
+```
+
+This command displays all databases available in the MySQL server.
+
+---
+
+# 5. What command is used to select a database?
+
+## Answer
+
+Use the `USE` command.
+
+### Syntax
+
+```sql
+USE database_name;
+```
+
+### Example
+
+```sql
+USE company_db;
+```
+
+---
+
+# 6. How do you view the structure of a table?
+
+## Answer
+
+Use:
+
+```sql
+DESCRIBE table_name;
+```
+
+or
+
+```sql
+DESC table_name;
+```
+
+### Example
+
+```sql
+DESC employees;
+```
+
+---
+
+# 7. What is a Primary Key?
+
+## Answer
+
+A Primary Key uniquely identifies each record in a table.
+
+### Features
+- Unique values
+- Cannot contain NULL values
+- Only one primary key per table
+
+### Example
+
+```sql
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+```
+
+---
+
+# 8. What is a Foreign Key?
+
+## Answer
+
+A Foreign Key creates a relationship between two tables.
+
+It references the Primary Key of another table.
+
+### Example
+
+```sql
+CREATE TABLE orders (
+    order_id INT,
+    customer_id INT,
+    FOREIGN KEY (customer_id)
+    REFERENCES customers(id)
+);
+```
+
+---
+
+# 9. Explain the CHAR vs VARCHAR data types.
+
+## Answer
+
+| CHAR | VARCHAR |
+|------|----------|
+| Fixed length | Variable length |
+| Faster | Saves memory |
+| Wastes space | Efficient storage |
+
+### Example
+
+```sql
+name CHAR(10);
+city VARCHAR(50);
+```
+
+---
+
+# 10. What is the difference between INT and BIGINT?
+
+## Answer
+
+| INT | BIGINT |
+|-----|---------|
+| 4 bytes | 8 bytes |
+| Smaller range | Larger range |
+
+### Example
+
+```sql
+age INT;
+population BIGINT;
+```
+
+---
+
+# 11. How do you create a table in MySQL?
+
+## Answer
+
+Use the `CREATE TABLE` statement.
+
+### Example
+
+```sql
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    salary INT
+);
+```
+
+---
+
+# 12. What is an Alias in MySQL?
+
+## Answer
+
+An Alias is a temporary name given to a column or table.
+
+### Example
+
+```sql
+SELECT name AS employee_name
+FROM employees;
+```
+
+---
+
+# 13. How do you filter unique values in a query?
+
+## Answer
+
+Use the `DISTINCT` keyword.
+
+### Example
+
+```sql
+SELECT DISTINCT department
+FROM employees;
+```
+
+This removes duplicate values.
+
+---
+
+# 14. What does the LIKE operator do?
+
+## Answer
+
+The `LIKE` operator is used for pattern matching.
+
+### Wildcards
+- `%` → Multiple characters
+- `_` → Single character
+
+### Example
+
+```sql
+SELECT * FROM employees
+WHERE name LIKE 'A%';
+```
+
+This finds names starting with 'A'.
+
+---
+
+# 15. What is the purpose of the LIMIT clause?
+
+## Answer
+
+The `LIMIT` clause restricts the number of rows returned.
+
+### Example
+
+```sql
+SELECT * FROM employees
+LIMIT 5;
+```
+
+This returns only 5 rows.
