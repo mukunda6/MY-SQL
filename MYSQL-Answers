@@ -1,48 +1,31 @@
-Top 50 SQL Interview Questions
-
-A complete collection of SQL interview questions and answers for interview preparation, placements, and quick revision.
-
--------------------------------------------------------------------------------
-
-TABLE OF CONTENTS
-
-Beginner Level
-1. What is MySQL and what are its key features?
-2. What is the default port for MySQL?
-3. Explain the difference between SQL and MySQL.
-4. How do you see all the databases available on the MySQL server?
-5. What command is used to select a database?
-6. How do you view the structure of a table?
-7. What is a Primary Key?
-8. What is a Foreign Key?
-9. Explain the CHAR vs VARCHAR data types.
-10. What is the difference between INT and BIGINT?
-11. How do you create a table in MySQL?
-12. What is an Alias in MySQL?
-13. How do you filter unique values in a query?
-14. What does the LIKE operator do?
-15. What is the purpose of the LIMIT clause?
-
 -------------------------------------------------------------------------------
 
 1. What is MySQL and what are its key features?
 
 Answer
 
-MySQL is an open-source Relational Database Management System (RDBMS) used to store, manage, and retrieve data using SQL.
+MySQL is an open-source Relational Database Management System (RDBMS) used to store, manage, and retrieve data using SQL (Structured Query Language).
+
+It stores data in the form of:
+• Tables
+• Rows
+• Columns
 
 Key Features
 • Open Source
 • High Performance
-• Security
 • Scalability
+• Security and User Authentication
 • ACID Compliance
 • Cross Platform Support
+• Indexing Support
+• Backup and Recovery
 
 Example
 
 SELECT * FROM students;
 
+-------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 
 2. What is the default port for MySQL?
@@ -53,39 +36,88 @@ The default port number for MySQL is:
 
 3306
 
+MySQL server listens on port 3306 by default for client connections.
+
 Example
 
 mysql -h localhost -P 3306 -u root -p
 
+Where:
+• -h → Hostname
+• -P → Port Number
+• -u → Username
+• -p → Password
+
+Important Point
+
+If multiple MySQL instances are running, different port numbers can also be configured manually.
+
+-------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 
 3. Explain the difference between SQL and MySQL.
 
 Answer
 
+SQL and MySQL are different but related concepts.
+
 SQL
-• Query language
-• Used to manage data
-• Standard language
+• SQL stands for Structured Query Language
+• It is a standard language used to interact with databases
+• Used to perform operations like SELECT, INSERT, UPDATE, and DELETE
+• SQL is a language, not software
 
 MySQL
-• Database software
-• Stores data
-• Uses SQL commands
+• MySQL is an open-source Relational Database Management System (RDBMS)
+• It is software used to store and manage databases
+• MySQL uses SQL language to perform database operations
+• Developed and maintained by Oracle Corporation
 
+Key Difference
+
+• SQL is a language
+• MySQL is database software that uses SQL
+
+Example
+
+SELECT * FROM employees;
+
+-------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 
 4. How do you see all the databases available on the MySQL server?
 
 Answer
 
+To display all databases available on the MySQL server, use the following command:
+
 SHOW DATABASES;
 
+This command lists all databases that the current user has permission to view.
+
+Example Output
+
+information_schema
+mysql
+performance_schema
+company_db
+student_db
+
+Important Point
+
+• You must have proper access permissions to view databases.
+• System databases are also displayed by default.
+
+-------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 
 5. What command is used to select a database?
 
 Answer
+
+The USE command is used to select a database in MySQL.
+
+Syntax
 
 USE database_name;
 
@@ -93,161 +125,11 @@ Example
 
 USE company_db;
 
--------------------------------------------------------------------------------
+After selecting the database, all SQL operations are performed on that database until another database is selected.
 
-6. How do you view the structure of a table?
+Important Point
 
-Answer
-
-DESC table_name;
-
-Example
-
-DESC employees;
+• The database must already exist before using the USE command.
+• Only one database can be selected at a time in a session.
 
 -------------------------------------------------------------------------------
-
-7. What is a Primary Key?
-
-Answer
-
-A Primary Key uniquely identifies each row in a table.
-
-Features
-• Unique values
-• Cannot contain NULL values
-• Only one primary key per table
-
-Example
-
-CREATE TABLE students (
-    id INT PRIMARY KEY,
-    name VARCHAR(50)
-);
-
--------------------------------------------------------------------------------
-
-8. What is a Foreign Key?
-
-Answer
-
-A Foreign Key creates a relationship between two tables.
-
-Example
-
-CREATE TABLE orders (
-    order_id INT,
-    customer_id INT,
-    FOREIGN KEY (customer_id)
-    REFERENCES customers(id)
-);
-
--------------------------------------------------------------------------------
-
-9. Explain the CHAR vs VARCHAR data types.
-
-Answer
-
-CHAR
-• Fixed length
-• Faster
-• Wastes space
-
-VARCHAR
-• Variable length
-• Saves memory
-• Efficient storage
-
--------------------------------------------------------------------------------
-
-10. What is the difference between INT and BIGINT?
-
-Answer
-
-INT
-• 4 bytes
-• Smaller range
-
-BIGINT
-• 8 bytes
-• Larger range
-
--------------------------------------------------------------------------------
-
-11. How do you create a table in MySQL?
-
-Answer
-
-CREATE TABLE employees (
-    id INT PRIMARY KEY,
-    name VARCHAR(50),
-    salary INT
-);
-
--------------------------------------------------------------------------------
-
-12. What is an Alias in MySQL?
-
-Answer
-
-An Alias is a temporary name given to a column or table.
-
-Example
-
-SELECT name AS employee_name
-FROM employees;
-
--------------------------------------------------------------------------------
-
-13. How do you filter unique values in a query?
-
-Answer
-
-Use DISTINCT keyword.
-
-Example
-
-SELECT DISTINCT department
-FROM employees;
-
--------------------------------------------------------------------------------
-
-14. What does the LIKE operator do?
-
-Answer
-
-The LIKE operator is used for pattern matching.
-
-Wildcards
-• % → Multiple characters
-• _ → Single character
-
-Example
-
-SELECT * FROM employees
-WHERE name LIKE 'A%';
-
--------------------------------------------------------------------------------
-
-15. What is the purpose of the LIMIT clause?
-
-Answer
-
-The LIMIT clause restricts the number of rows returned.
-
-Example
-
-SELECT * FROM employees
-LIMIT 5;
-
--------------------------------------------------------------------------------
-
-Author
-
-Mukunda Sai
-
--------------------------------------------------------------------------------
-
-Goal
-
-To master SQL concepts and prepare for technical interviews.
