@@ -133,3 +133,97 @@ Important Point
 • Only one database can be selected at a time in a session.
 
 -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+6. How do you view the structure of a table?
+
+Answer
+
+To view the structure of a table in MySQL, use the DESCRIBE or DESC command.
+
+Syntax
+
+DESCRIBE table_name;
+
+or
+
+DESC table_name;
+
+Example
+
+DESC employees;
+
+This command shows:
+• Column names
+• Data types
+• NULL values
+• Key information
+• Default values
+• Extra properties
+
+Example Output
+
+id          INT         PRIMARY KEY
+name        VARCHAR(50)
+salary      INT
+
+Important Point
+
+• DESCRIBE and DESC both perform the same function.
+• It is useful for understanding table schema and column details.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+7. What is a Primary Key?
+
+Answer
+
+A Primary Key is a column or set of columns used to uniquely identify each record in a table.
+
+Features of Primary Key
+• Values must be unique
+• Cannot contain NULL values
+• Each table can have only one Primary Key
+• Helps maintain data integrity
+
+Example
+
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT
+);
+
+In this example:
+• id is the Primary Key
+• Each student will have a unique id
+
+Real-Time Example
+
+Consider an Aadhaar Number system.
+
+• Every citizen has a unique Aadhaar number
+• No two people can have the same Aadhaar number
+• It uniquely identifies each person
+
+Similarly, in a school database:
+• Student ID uniquely identifies each student
+
+Example Table
+
+Student_ID      Name         Marks
+101             Rahul        85
+102             Priya        92
+103             Arjun        78
+
+Here:
+• Student_ID is the Primary Key
+• Each value is unique
+
+Important Point
+
+• Primary Keys improve data organization and relationships between tables.
+• Primary Keys are often used with Foreign Keys.
+
+-------------------------------------------------------------------------------
