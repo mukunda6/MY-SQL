@@ -1,0 +1,40 @@
+# Part 1: Beginner (Basic Concepts & CRUD)
+
+---
+
+# 1. What is MySQL and what are its key features?
+
+## Answer
+
+MySQL is an open-source Relational Database Management System (RDBMS) used to store, manage, and retrieve data using SQL (Structured Query Language).
+
+It stores data in the form of:
+- Tables
+- Rows
+- Columns
+
+MySQL is widely used in:
+- Web applications
+- Enterprise software
+- Backend systems
+- Data-driven applications
+
+### Key Features of MySQL
+
+- Open Source
+- High Performance
+- Scalability
+- Security and User Authentication
+- ACID Compliance
+- Cross Platform Support
+- Indexing Support
+- Backup and Replication
+- Supports Multiple Storage Engines
+
+### Example Query
+
+```sql
+SELECT * FROM students;
+```
+
+---
