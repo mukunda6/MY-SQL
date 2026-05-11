@@ -565,3 +565,249 @@ SELECT name employee_name
 FROM employees;
 
 -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+13. How do you filter unique values in a query?
+
+Answer
+
+In MySQL, the DISTINCT keyword is used to filter unique values from a column.
+
+It removes duplicate records from the query result.
+
+Syntax
+
+SELECT DISTINCT column_name
+FROM table_name;
+
+Example
+
+SELECT DISTINCT department
+FROM employees;
+
+This query displays only unique department names.
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_Name      Department
+Rahul              IT
+Priya              HR
+Arjun              IT
+Sneha              Finance
+Kiran              HR
+
+If we run:
+
+SELECT DISTINCT department
+FROM employees;
+
+Output
+
+IT
+HR
+Finance
+
+Here:
+• Duplicate department values are removed
+• Only unique values are displayed
+
+Using DISTINCT with Multiple Columns
+
+Example
+
+SELECT DISTINCT department, city
+FROM employees;
+
+This returns unique combinations of department and city.
+
+Key Benefits
+
+• Removes duplicate records
+• Helps in data analysis
+• Improves report clarity
+• Useful for generating unique lists
+
+Important Point
+
+• DISTINCT works on complete selected values.
+• It can be used with one or multiple columns.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+14. What does the LIKE operator do?
+
+Answer
+
+The LIKE operator in MySQL is used for pattern matching in SQL queries.
+
+It helps search for specific patterns in text data.
+
+LIKE is commonly used with wildcard characters.
+
+Wildcards Used in LIKE
+
+• %  → Represents multiple characters
+• _  → Represents a single character
+
+Syntax
+
+SELECT column_name
+FROM table_name
+WHERE column_name LIKE pattern;
+
+Example 1
+
+SELECT * FROM employees
+WHERE name LIKE 'A%';
+
+Explanation
+• Finds names starting with the letter A
+
+Example Output
+
+Akhil
+Ananya
+Arjun
+
+Example 2
+
+SELECT * FROM employees
+WHERE name LIKE '%n';
+
+Explanation
+• Finds names ending with the letter n
+
+Example Output
+
+Kiran
+Mohan
+
+Example 3
+
+SELECT * FROM employees
+WHERE name LIKE '_a%';
+
+Explanation
+• Second character must be 'a'
+
+Real-Time Example
+
+Consider an E-commerce Website.
+
+A customer searches for products starting with "Sam".
+
+Query
+
+SELECT * FROM products
+WHERE product_name LIKE 'Sam%';
+
+Output
+
+Samsung Galaxy S24
+Samsung TV
+Samsung Watch
+
+This helps users search products quickly.
+
+Key Benefits
+
+• Used for searching text patterns
+• Helpful in search functionality
+• Improves filtering of records
+• Supports flexible matching
+
+Important Point
+
+• LIKE is mainly used with VARCHAR or TEXT columns.
+• Pattern matching is case-insensitive in many MySQL configurations.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+15. What is the purpose of the LIMIT clause?
+
+Answer
+
+The LIMIT clause in MySQL is used to restrict the number of rows returned by a query.
+
+It helps display only a specific number of records from a table.
+
+Syntax
+
+SELECT column_name
+FROM table_name
+LIMIT number;
+
+Example
+
+SELECT * FROM employees
+LIMIT 5;
+
+Explanation
+• Returns only the first 5 rows from the employees table
+
+Using LIMIT with OFFSET
+
+Syntax
+
+SELECT column_name
+FROM table_name
+LIMIT offset, count;
+
+Example
+
+SELECT * FROM employees
+LIMIT 5, 5;
+
+Explanation
+• Skips the first 5 rows
+• Displays the next 5 rows
+
+Real-Time Example
+
+Consider an E-commerce Website.
+
+When a user opens a product page:
+• Thousands of products may exist
+• Showing all products at once reduces performance
+
+Instead, only limited products are displayed.
+
+Example
+
+SELECT * FROM products
+LIMIT 10;
+
+This displays:
+• Only the first 10 products on the page
+
+This technique is commonly used in:
+• Pagination
+• Dashboards
+• Search Results
+• Reports
+
+Key Benefits
+
+• Improves query performance
+• Reduces unnecessary data loading
+• Helps implement pagination
+• Makes output easier to read
+
+Important Point
+
+• LIMIT is mainly used with SELECT queries.
+• Often combined with ORDER BY for accurate results.
+
+Example
+
+SELECT * FROM employees
+ORDER BY salary DESC
+LIMIT 3;
+
+This returns the top 3 highest-paid employees.
+
+-------------------------------------------------------------------------------
