@@ -199,3 +199,125 @@ Important Point
 • INNER JOIN is the most commonly used Join in real-world applications.
 
 -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+17. What is the difference between WHERE and HAVING?
+
+Answer
+
+WHERE and HAVING clauses are both used for filtering data in MySQL, but they are used in different situations.
+
+WHERE Clause
+• Filters rows before grouping
+• Used with SELECT, UPDATE, DELETE
+• Cannot use aggregate functions directly
+• Works on individual rows
+
+HAVING Clause
+• Filters data after grouping
+• Mainly used with GROUP BY
+• Can use aggregate functions
+• Works on grouped records
+
+-------------------------------------------------------------------------------
+
+Syntax of WHERE
+
+SELECT column_name
+FROM table_name
+WHERE condition;
+
+Example
+
+SELECT * FROM employees
+WHERE salary > 50000;
+
+Explanation
+• Filters employees whose salary is greater than 50000.
+
+-------------------------------------------------------------------------------
+
+Syntax of HAVING
+
+SELECT column_name, aggregate_function(column_name)
+FROM table_name
+GROUP BY column_name
+HAVING condition;
+
+Example
+
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 2;
+
+Explanation
+• Displays departments having more than 2 employees.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_Name      Department      Salary
+Rahul              IT              60000
+Priya              HR              45000
+Arjun              IT              70000
+Sneha              Finance         55000
+Kiran              IT              65000
+
+WHERE Example
+
+SELECT * FROM employees
+WHERE salary > 50000;
+
+Output
+
+Rahul
+Arjun
+Sneha
+Kiran
+
+Explanation
+• Filters rows before grouping.
+
+-------------------------------------------------------------------------------
+
+HAVING Example
+
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 2;
+
+Output
+
+IT      3
+
+Explanation
+• Filters grouped data after applying GROUP BY.
+
+-------------------------------------------------------------------------------
+
+Key Differences
+
+WHERE
+• Filters rows
+• Used before GROUP BY
+• Cannot use aggregate functions
+
+HAVING
+• Filters groups
+• Used after GROUP BY
+• Can use aggregate functions
+
+-------------------------------------------------------------------------------
+
+Important Point
+
+• WHERE is used for row-level filtering.
+• HAVING is used for group-level filtering.
+• HAVING is mostly used with aggregate functions like COUNT(), SUM(), AVG().
+
+-------------------------------------------------------------------------------
