@@ -227,3 +227,341 @@ Important Point
 • Primary Keys are often used with Foreign Keys.
 
 -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+8. What is a Foreign Key?
+
+Answer
+
+A Foreign Key is a column or set of columns in one table that creates a relationship with the Primary Key of another table.
+
+It is used to maintain referential integrity between tables.
+
+Features of Foreign Key
+• Creates relationships between tables
+• Prevents invalid data entry
+• References the Primary Key of another table
+• Allows duplicate values
+• Can contain NULL values
+
+Example
+
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(50)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    FOREIGN KEY (customer_id)
+    REFERENCES customers(customer_id)
+);
+
+In this example:
+• customer_id in customers table is the Primary Key
+• customer_id in orders table is the Foreign Key
+
+Real-Time Example
+
+Consider an E-commerce Application.
+
+Customers Table
+
+Customer_ID      Customer_Name
+101              Rahul
+102              Priya
+
+Orders Table
+
+Order_ID         Customer_ID
+5001             101
+5002             102
+
+Here:
+• Customer_ID in Orders table refers to Customer_ID in Customers table
+• An order cannot exist without a valid customer
+
+This relationship helps connect customers with their orders.
+
+Important Point
+
+• Foreign Keys help maintain consistency between related tables.
+• They are mainly used in relational databases to establish table relationships.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+9. Explain the CHAR vs. VARCHAR data types.
+
+Answer
+
+CHAR and VARCHAR are data types used to store character strings in MySQL.
+
+CHAR
+• Fixed-length data type
+• Allocates full specified memory even if data is smaller
+• Faster in performance for fixed-size data
+• Wastes memory if data length varies
+
+VARCHAR
+• Variable-length data type
+• Uses only required memory
+• Saves storage space
+• Slightly slower compared to CHAR
+
+Example
+
+name CHAR(10);
+city VARCHAR(50);
+
+Explanation
+• CHAR(10) always stores 10 characters
+• VARCHAR(50) stores only the actual entered characters
+
+Real-Time Example
+
+Consider storing Gender values:
+
+• Male
+• Female
+
+Since the values are fixed and small, CHAR is better.
+
+Example
+
+gender CHAR(6);
+
+Now consider storing Email Addresses:
+
+• Different users have different email lengths
+
+VARCHAR is better because it saves memory.
+
+Example
+
+email VARCHAR(100);
+
+Key Differences
+
+CHAR
+• Fixed Length
+• Faster
+• Wastes Space
+
+VARCHAR
+• Variable Length
+• Memory Efficient
+• Flexible Storage
+
+Important Point
+
+• Use CHAR for fixed-size values like Gender, Country Code, PIN.
+• Use VARCHAR for variable-length values like Names, Emails, Addresses.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+10. What is the difference between INT and BIGINT?
+
+Answer
+
+INT and BIGINT are numeric data types used to store integer values in MySQL.
+
+INT
+• Uses 4 bytes of storage
+• Stores smaller integer values
+• Range:
+  -2147483648 to 2147483647
+
+BIGINT
+• Uses 8 bytes of storage
+• Stores very large integer values
+• Range:
+  -9223372036854775808 to 9223372036854775807
+
+Example
+
+age INT;
+population BIGINT;
+
+Real-Time Example
+
+INT Example
+• Storing student marks
+• Employee age
+• Product quantity
+
+Example
+
+marks INT;
+
+BIGINT Example
+• Storing population data
+• Bank transaction IDs
+• Large application user counts
+
+Example
+
+youtube_views BIGINT;
+
+Explanation
+
+• INT is suitable for normal-sized numbers.
+• BIGINT is used when the value can become extremely large.
+
+Key Differences
+
+INT
+• 4 Bytes
+• Smaller Range
+• Less Storage
+
+BIGINT
+• 8 Bytes
+• Larger Range
+• More Storage
+
+Important Point
+
+• Use INT for regular numeric values.
+• Use BIGINT when handling huge numbers to avoid overflow issues.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+11. How do you create a table in MySQL?
+
+Answer
+
+In MySQL, the CREATE TABLE statement is used to create a new table in a database.
+
+Syntax
+
+CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype
+);
+
+Example
+
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    salary INT,
+    department VARCHAR(30)
+);
+
+In this example:
+• employees → Table Name
+• id, name, salary, department → Columns
+• INT and VARCHAR → Data Types
+
+Real-Time Example
+
+Consider an Employee Management System.
+
+A company needs to store employee details such as:
+• Employee ID
+• Employee Name
+• Salary
+• Department
+
+For this, a table is created:
+
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(100),
+    salary INT,
+    department VARCHAR(50)
+);
+
+Sample Data
+
+Employee_ID      Employee_Name      Department
+101              Rahul              HR
+102              Priya              IT
+103              Arjun              Finance
+
+Important Point
+
+• A table must have unique column names.
+• Proper data types should be selected for efficient storage.
+• Primary Keys are commonly added while creating tables.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+12. What is an Alias in MySQL?
+
+Answer
+
+An Alias in MySQL is a temporary name given to a column or a table to make the output more readable and understandable.
+
+Aliases are created using the AS keyword.
+
+Syntax
+
+SELECT column_name AS alias_name
+FROM table_name;
+
+Example
+
+SELECT name AS employee_name
+FROM employees;
+
+In this example:
+• name is the original column name
+• employee_name is the alias
+
+The output will display employee_name instead of name.
+
+Table Alias Example
+
+SELECT e.name, e.salary
+FROM employees AS e;
+
+Here:
+• e is the alias for employees table
+
+Real-Time Example
+
+Consider a company database where the column name is:
+
+emp_salary
+
+This may not look user-friendly in reports.
+
+Using Alias:
+
+SELECT emp_salary AS Monthly_Salary
+FROM employees;
+
+Output
+
+Monthly_Salary
+50000
+65000
+70000
+
+This makes the report easier to understand.
+
+Key Benefits of Alias
+
+• Improves readability
+• Makes column names user-friendly
+• Useful in reports and dashboards
+• Simplifies complex queries
+
+Important Point
+
+• Aliases are temporary and exist only during query execution.
+• AS keyword is optional in MySQL.
+
+Example Without AS
+
+SELECT name employee_name
+FROM employees;
+
+-------------------------------------------------------------------------------
