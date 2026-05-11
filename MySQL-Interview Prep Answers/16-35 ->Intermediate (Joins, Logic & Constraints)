@@ -1,1 +1,201 @@
+-------------------------------------------------------------------------------
 
+16. Name and explain the four types of Joins in MySQL.
+
+Answer
+
+Joins in MySQL are used to combine data from two or more tables based on a related column.
+
+The four main types of Joins are:
+• INNER JOIN
+• LEFT JOIN
+• RIGHT JOIN
+• FULL JOIN
+
+-------------------------------------------------------------------------------
+
+1. INNER JOIN
+
+INNER JOIN returns only the matching records from both tables.
+
+Syntax
+
+SELECT columns
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+
+Example
+
+SELECT employees.name, departments.department_name
+FROM employees
+INNER JOIN departments
+ON employees.department_id = departments.department_id;
+
+Explanation
+• Only employees with matching departments are displayed.
+
+Real-Time Example
+
+Employee Table
+
+Employee_ID      Name      Department_ID
+101              Rahul     1
+102              Priya     2
+
+Department Table
+
+Department_ID      Department_Name
+1                  HR
+2                  IT
+
+Output
+
+Rahul      HR
+Priya      IT
+
+-------------------------------------------------------------------------------
+
+2. LEFT JOIN
+
+LEFT JOIN returns:
+• All records from the left table
+• Matching records from the right table
+
+If no match exists, NULL values are returned.
+
+Syntax
+
+SELECT columns
+FROM table1
+LEFT JOIN table2
+ON table1.column_name = table2.column_name;
+
+Example
+
+SELECT employees.name, departments.department_name
+FROM employees
+LEFT JOIN departments
+ON employees.department_id = departments.department_id;
+
+Explanation
+• All employees are shown even if department data is missing.
+
+Real-Time Example
+
+Employee Table
+
+Employee_ID      Name      Department_ID
+101              Rahul     1
+102              Priya     NULL
+
+Department Table
+
+Department_ID      Department_Name
+1                  HR
+
+Output
+
+Rahul      HR
+Priya      NULL
+
+-------------------------------------------------------------------------------
+
+3. RIGHT JOIN
+
+RIGHT JOIN returns:
+• All records from the right table
+• Matching records from the left table
+
+If no match exists, NULL values are returned.
+
+Syntax
+
+SELECT columns
+FROM table1
+RIGHT JOIN table2
+ON table1.column_name = table2.column_name;
+
+Example
+
+SELECT employees.name, departments.department_name
+FROM employees
+RIGHT JOIN departments
+ON employees.department_id = departments.department_id;
+
+Explanation
+• All departments are displayed even if no employees exist.
+
+Real-Time Example
+
+Department Table
+
+Department_ID      Department_Name
+1                  HR
+2                  IT
+3                  Finance
+
+Employee Table
+
+Employee_ID      Name      Department_ID
+101              Rahul     1
+
+Output
+
+Rahul      HR
+NULL       IT
+NULL       Finance
+
+-------------------------------------------------------------------------------
+
+4. FULL JOIN
+
+FULL JOIN returns:
+• All matching records
+• All non-matching records from both tables
+
+MySQL does not directly support FULL JOIN.
+It can be achieved using UNION.
+
+Example
+
+SELECT employees.name, departments.department_name
+FROM employees
+LEFT JOIN departments
+ON employees.department_id = departments.department_id
+
+UNION
+
+SELECT employees.name, departments.department_name
+FROM employees
+RIGHT JOIN departments
+ON employees.department_id = departments.department_id;
+
+Explanation
+• Combines results of LEFT JOIN and RIGHT JOIN.
+
+-------------------------------------------------------------------------------
+
+Key Differences
+
+INNER JOIN
+• Returns only matching records
+
+LEFT JOIN
+• Returns all records from left table
+
+RIGHT JOIN
+• Returns all records from right table
+
+FULL JOIN
+• Returns all records from both tables
+
+-------------------------------------------------------------------------------
+
+Important Point
+
+• Joins are widely used in relational databases.
+• They help combine related data efficiently.
+• INNER JOIN is the most commonly used Join in real-world applications.
+
+-------------------------------------------------------------------------------
