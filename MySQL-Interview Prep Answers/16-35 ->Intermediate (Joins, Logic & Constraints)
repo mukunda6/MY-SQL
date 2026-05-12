@@ -646,3 +646,1628 @@ Important Points
 • Commonly used with SELECT, INSERT, UPDATE, and DELETE statements.
 
 -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+21. What is the difference between DELETE, TRUNCATE, and DROP?
+
+Answer
+
+DELETE, TRUNCATE, and DROP are SQL commands used to remove data or database objects, but they work differently.
+
+-------------------------------------------------------------------------------
+
+DELETE Command
+
+• Removes selected rows from a table
+• Uses WHERE clause to filter rows
+• Table structure remains unchanged
+• Can be rolled back
+• Slower compared to TRUNCATE
+
+-------------------------------------------------------------------------------
+
+TRUNCATE Command
+
+• Removes all rows from a table
+• Cannot use WHERE clause
+• Table structure remains unchanged
+• Faster than DELETE
+• Resets auto-increment values
+
+-------------------------------------------------------------------------------
+
+DROP Command
+
+• Completely removes the table from database
+• Deletes both data and table structure
+• Cannot be rolled back in most databases
+• Table no longer exists after execution
+
+-------------------------------------------------------------------------------
+
+Syntax of DELETE
+
+DELETE FROM table_name
+WHERE condition;
+
+Example
+
+DELETE FROM employees
+WHERE employee_id = 101;
+
+Explanation
+
+• Deletes employee whose ID is 101.
+
+-------------------------------------------------------------------------------
+
+Syntax of TRUNCATE
+
+TRUNCATE TABLE table_name;
+
+Example
+
+TRUNCATE TABLE employees;
+
+Explanation
+
+• Removes all records from employees table.
+• Table structure still exists.
+
+-------------------------------------------------------------------------------
+
+Syntax of DROP
+
+DROP TABLE table_name;
+
+Example
+
+DROP TABLE employees;
+
+Explanation
+
+• Deletes entire employees table including structure and data.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_ID      Employee_Name      Department
+101              Rahul              IT
+102              Priya              HR
+103              Arjun              Finance
+
+-------------------------------------------------------------------------------
+
+DELETE Example
+
+DELETE FROM employees
+WHERE employee_id = 102;
+
+Output
+
+101      Rahul      IT
+103      Arjun      Finance
+
+Explanation
+
+• Only Priya's record is deleted.
+
+-------------------------------------------------------------------------------
+
+TRUNCATE Example
+
+TRUNCATE TABLE employees;
+
+Output
+
+Empty Table
+
+Explanation
+
+• All records are removed.
+• Table structure remains available.
+
+-------------------------------------------------------------------------------
+
+DROP Example
+
+DROP TABLE employees;
+
+Output
+
+Table Deleted
+
+Explanation
+
+• Entire table including data and structure is removed.
+
+-------------------------------------------------------------------------------
+
+Key Differences
+
+DELETE
+• Removes selected rows
+• WHERE clause can be used
+• Table structure remains
+• Can be rolled back
+• Slower performance
+
+TRUNCATE
+• Removes all rows
+• WHERE clause cannot be used
+• Table structure remains
+• Faster performance
+• Resets auto increment
+
+DROP
+• Removes entire table
+• Deletes structure and data
+• Table no longer exists
+• Cannot be rolled back in most cases
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• DELETE is used for removing specific rows.
+• TRUNCATE is used for removing all rows quickly.
+• DROP is used for deleting complete table structure.
+• DELETE supports WHERE clause.
+• TRUNCATE and DROP are faster than DELETE.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+22. How do you handle NULL values in MySQL?
+
+Answer
+
+NULL in MySQL represents a missing, unknown, or undefined value.
+
+Handling NULL values is important to avoid incorrect query results and calculation errors.
+
+MySQL provides different functions and operators to work with NULL values.
+
+-------------------------------------------------------------------------------
+
+Ways to Handle NULL Values
+
+• IS NULL
+• IS NOT NULL
+• IFNULL()
+• COALESCE()
+• NULLIF()
+
+-------------------------------------------------------------------------------
+
+Using IS NULL
+
+• Used to find rows containing NULL values.
+
+Syntax
+
+SELECT column_name
+FROM table_name
+WHERE column_name IS NULL;
+
+Example
+
+SELECT employee_name
+FROM employees
+WHERE salary IS NULL;
+
+Explanation
+
+• Displays employees whose salary is not available.
+
+-------------------------------------------------------------------------------
+
+Using IS NOT NULL
+
+• Used to find rows that do not contain NULL values.
+
+Syntax
+
+SELECT column_name
+FROM table_name
+WHERE column_name IS NOT NULL;
+
+Example
+
+SELECT employee_name
+FROM employees
+WHERE salary IS NOT NULL;
+
+Explanation
+
+• Displays employees whose salary exists.
+
+-------------------------------------------------------------------------------
+
+Using IFNULL()
+
+• Replaces NULL value with another value.
+
+Syntax
+
+SELECT IFNULL(column_name, replacement_value)
+FROM table_name;
+
+Example
+
+SELECT employee_name,
+IFNULL(salary, 0)
+FROM employees;
+
+Explanation
+
+• Replaces NULL salary values with 0.
+
+-------------------------------------------------------------------------------
+
+Using COALESCE()
+
+• Returns the first non-NULL value from the list.
+
+Syntax
+
+SELECT COALESCE(value1, value2, value3);
+
+Example
+
+SELECT employee_name,
+COALESCE(phone_number, email, 'No Contact')
+FROM employees;
+
+Explanation
+
+• Displays first available contact information.
+
+-------------------------------------------------------------------------------
+
+Using NULLIF()
+
+• Returns NULL if two expressions are equal.
+
+Syntax
+
+SELECT NULLIF(expression1, expression2);
+
+Example
+
+SELECT NULLIF(100, 100);
+
+Output
+
+NULL
+
+Explanation
+
+• Since both values are equal, NULL is returned.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_Name      Department      Salary
+Rahul              IT              60000
+Priya              HR              NULL
+Arjun              IT              70000
+Sneha              Finance         NULL
+
+-------------------------------------------------------------------------------
+
+IS NULL Example
+
+SELECT employee_name
+FROM employees
+WHERE salary IS NULL;
+
+Output
+
+Priya
+Sneha
+
+Explanation
+
+• Displays employees whose salary is NULL.
+
+-------------------------------------------------------------------------------
+
+IFNULL() Example
+
+SELECT employee_name,
+IFNULL(salary, 0)
+FROM employees;
+
+Output
+
+Rahul      60000
+Priya      0
+Arjun      70000
+Sneha      0
+
+Explanation
+
+• NULL salary values are replaced with 0.
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• NULL means missing or unknown value.
+• NULL is different from 0 or empty string.
+• IS NULL and IS NOT NULL are commonly used.
+• IFNULL() replaces NULL with another value.
+• COALESCE() returns first non-NULL value.
+• Proper NULL handling improves query accuracy.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+23. What is an Index, and why is it used?
+
+Answer
+
+An Index in MySQL is a database object used to improve the speed of data retrieval operations.
+
+Indexes help MySQL find rows faster without scanning the entire table.
+
+They are mainly used on columns that are frequently searched, filtered, or sorted.
+
+-------------------------------------------------------------------------------
+
+Features of Index
+
+• Improves query performance
+• Speeds up data retrieval
+• Reduces table scanning
+• Created on one or more columns
+• Uses additional storage space
+
+-------------------------------------------------------------------------------
+
+Why Index is Used
+
+• Faster searching of records
+• Improves SELECT query performance
+• Helps in sorting and filtering
+• Enhances JOIN operations
+• Reduces execution time for large tables
+
+-------------------------------------------------------------------------------
+
+Syntax of Creating Index
+
+CREATE INDEX index_name
+ON table_name(column_name);
+
+Example
+
+CREATE INDEX idx_employee_name
+ON employees(employee_name);
+
+Explanation
+
+• Creates an index on employee_name column.
+• Improves search performance on employee_name.
+
+-------------------------------------------------------------------------------
+
+Syntax of Viewing Index
+
+SHOW INDEX FROM table_name;
+
+Example
+
+SHOW INDEX FROM employees;
+
+Explanation
+
+• Displays all indexes created on employees table.
+
+-------------------------------------------------------------------------------
+
+Syntax of Dropping Index
+
+DROP INDEX index_name
+ON table_name;
+
+Example
+
+DROP INDEX idx_employee_name
+ON employees;
+
+Explanation
+
+• Removes index from employee_name column.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table with thousands of records.
+
+Employee_ID      Employee_Name      Department
+101              Rahul              IT
+102              Priya              HR
+103              Arjun              Finance
+
+-------------------------------------------------------------------------------
+
+Without Index
+
+SELECT * FROM employees
+WHERE employee_name = 'Rahul';
+
+Explanation
+
+• MySQL scans entire table row by row.
+• Query execution becomes slower for large tables.
+
+-------------------------------------------------------------------------------
+
+With Index
+
+CREATE INDEX idx_employee_name
+ON employees(employee_name);
+
+SELECT * FROM employees
+WHERE employee_name = 'Rahul';
+
+Explanation
+
+• MySQL uses index to quickly locate records.
+• Query execution becomes much faster.
+
+-------------------------------------------------------------------------------
+
+Types of Indexes
+
+Primary Index
+• Automatically created on PRIMARY KEY
+
+Unique Index
+• Prevents duplicate values
+
+Composite Index
+• Created on multiple columns
+
+Full-Text Index
+• Used for text searching
+
+-------------------------------------------------------------------------------
+
+Advantages of Index
+
+• Faster data retrieval
+• Improves query optimization
+• Better performance for large databases
+• Faster sorting and filtering
+
+-------------------------------------------------------------------------------
+
+Disadvantages of Index
+
+• Uses extra storage space
+• Slows down INSERT, UPDATE, DELETE operations
+• Too many indexes reduce performance
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• Index improves SELECT query speed.
+• Mostly used on frequently searched columns.
+• Indexes increase database performance.
+• Excessive indexes can slow data modification operations.
+• PRIMARY KEY automatically creates an index.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+24. Explain the difference between a Clustered and Non-Clustered Index.
+
+Answer
+
+Clustered and Non-Clustered Indexes are used to improve database performance and speed up data retrieval, but they store data differently.
+
+-------------------------------------------------------------------------------
+
+Clustered Index
+
+• Stores actual table data in sorted order
+• Changes physical order of rows in table
+• Table can have only one Clustered Index
+• Faster for range-based searches
+• PRIMARY KEY usually creates Clustered Index
+
+-------------------------------------------------------------------------------
+
+Non-Clustered Index
+
+• Stores index separately from actual table data
+• Contains pointers to data rows
+• Does not change physical order of table
+• Multiple Non-Clustered Indexes can exist
+• Slightly slower compared to Clustered Index
+
+-------------------------------------------------------------------------------
+
+Clustered Index Syntax
+
+CREATE CLUSTERED INDEX index_name
+ON table_name(column_name);
+
+Example
+
+CREATE CLUSTERED INDEX idx_employee_id
+ON employees(employee_id);
+
+Explanation
+
+• Arranges table records physically based on employee_id.
+
+-------------------------------------------------------------------------------
+
+Non-Clustered Index Syntax
+
+CREATE NONCLUSTERED INDEX index_name
+ON table_name(column_name);
+
+Example
+
+CREATE NONCLUSTERED INDEX idx_employee_name
+ON employees(employee_name);
+
+Explanation
+
+• Creates separate index structure for employee_name.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_ID      Employee_Name      Department
+101              Rahul              IT
+102              Priya              HR
+103              Arjun              Finance
+104              Sneha              IT
+
+-------------------------------------------------------------------------------
+
+Clustered Index Example
+
+CREATE CLUSTERED INDEX idx_employee_id
+ON employees(employee_id);
+
+Explanation
+
+• Records are physically stored in sorted order of employee_id.
+• Searching employee by ID becomes faster.
+
+-------------------------------------------------------------------------------
+
+Non-Clustered Index Example
+
+CREATE NONCLUSTERED INDEX idx_employee_name
+ON employees(employee_name);
+
+Explanation
+
+• Separate index table stores employee_name with pointers to actual rows.
+• Searching by employee_name becomes faster.
+
+-------------------------------------------------------------------------------
+
+Key Differences
+
+Clustered Index
+• Stores actual data rows
+• Changes physical order of table
+• Only one allowed per table
+• Faster retrieval performance
+• Usually created on PRIMARY KEY
+
+Non-Clustered Index
+• Stores pointers to data
+• Does not change physical order
+• Multiple indexes allowed
+• Slightly slower than clustered
+• Used for frequently searched columns
+
+-------------------------------------------------------------------------------
+
+Advantages of Clustered Index
+
+• Faster data retrieval
+• Efficient for range queries
+• Better performance for sorting
+
+-------------------------------------------------------------------------------
+
+Advantages of Non-Clustered Index
+
+• Multiple indexes allowed
+• Improves search on different columns
+• Does not affect physical table structure
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• Clustered Index stores actual table data.
+• Non-Clustered Index stores references to data.
+• A table can have only one Clustered Index.
+• A table can have multiple Non-Clustered Indexes.
+• Both indexes improve query performance.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+25. What is a View?
+
+Answer
+
+A View in MySQL is a virtual table created from one or more tables using a SQL query.
+
+A View does not store data physically.  
+It displays data from the original tables whenever the view is accessed.
+
+Views are mainly used for security, simplification, and data abstraction.
+
+-------------------------------------------------------------------------------
+
+Features of View
+
+• Virtual table in MySQL
+• Created using SELECT statement
+• Does not store data physically
+• Can combine data from multiple tables
+• Helps simplify complex queries
+
+-------------------------------------------------------------------------------
+
+Why Views are Used
+
+• Improves security
+• Simplifies complex SQL queries
+• Provides data abstraction
+• Restricts access to specific data
+• Reuses frequently used queries
+
+-------------------------------------------------------------------------------
+
+Syntax of Creating View
+
+CREATE VIEW view_name AS
+SELECT column_name
+FROM table_name
+WHERE condition;
+
+Example
+
+CREATE VIEW high_salary_employees AS
+SELECT employee_name, salary
+FROM employees
+WHERE salary > 50000;
+
+Explanation
+
+• Creates a view containing employees with salary greater than 50000.
+
+-------------------------------------------------------------------------------
+
+Syntax of Viewing Data from View
+
+SELECT * FROM view_name;
+
+Example
+
+SELECT * FROM high_salary_employees;
+
+Explanation
+
+• Displays data stored in the view.
+
+-------------------------------------------------------------------------------
+
+Syntax of Dropping View
+
+DROP VIEW view_name;
+
+Example
+
+DROP VIEW high_salary_employees;
+
+Explanation
+
+• Deletes the view from database.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_ID      Employee_Name      Department      Salary
+101              Rahul              IT              60000
+102              Priya              HR              45000
+103              Arjun              IT              70000
+104              Sneha              Finance         55000
+
+-------------------------------------------------------------------------------
+
+View Example
+
+CREATE VIEW it_employees AS
+SELECT employee_name, salary
+FROM employees
+WHERE department = 'IT';
+
+-------------------------------------------------------------------------------
+
+Using View
+
+SELECT * FROM it_employees;
+
+Output
+
+Rahul      60000
+Arjun      70000
+
+Explanation
+
+• Displays only IT department employees.
+• Original table remains unchanged.
+
+-------------------------------------------------------------------------------
+
+Advantages of Views
+
+• Simplifies complex queries
+• Improves data security
+• Hides unnecessary columns
+• Provides logical data representation
+• Reusable query structure
+
+-------------------------------------------------------------------------------
+
+Disadvantages of Views
+
+• Slower performance for complex views
+• Cannot always update data through views
+• Depends on original tables
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• View is a virtual table.
+• Data is fetched from original tables.
+• Views do not store data physically.
+• Used for security and simplification.
+• Created using CREATE VIEW statement.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+26. What is a Trigger?
+
+Answer
+
+A Trigger in MySQL is a stored program that automatically executes when a specific event occurs on a table.
+
+Triggers are activated automatically during INSERT, UPDATE, or DELETE operations.
+
+They are mainly used for auditing, validation, logging, and maintaining data integrity.
+
+-------------------------------------------------------------------------------
+
+Features of Trigger
+
+• Executes automatically
+• Associated with a table
+• Activated by INSERT, UPDATE, or DELETE events
+• Helps maintain data consistency
+• Used for automation in database operations
+
+-------------------------------------------------------------------------------
+
+Types of Triggers
+
+BEFORE INSERT Trigger
+• Executes before inserting data
+
+AFTER INSERT Trigger
+• Executes after inserting data
+
+BEFORE UPDATE Trigger
+• Executes before updating data
+
+AFTER UPDATE Trigger
+• Executes after updating data
+
+BEFORE DELETE Trigger
+• Executes before deleting data
+
+AFTER DELETE Trigger
+• Executes after deleting data
+
+-------------------------------------------------------------------------------
+
+Syntax of Trigger
+
+CREATE TRIGGER trigger_name
+BEFORE | AFTER
+INSERT | UPDATE | DELETE
+ON table_name
+FOR EACH ROW
+BEGIN
+    trigger_statements;
+END;
+
+-------------------------------------------------------------------------------
+
+Example of Trigger
+
+CREATE TRIGGER before_employee_insert
+BEFORE INSERT
+ON employees
+FOR EACH ROW
+BEGIN
+    SET NEW.salary = IFNULL(NEW.salary, 0);
+END;
+
+Explanation
+
+• Automatically sets salary to 0 if NULL value is inserted.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_ID      Employee_Name      Salary
+101              Rahul              60000
+102              Priya              45000
+
+-------------------------------------------------------------------------------
+
+Trigger Example
+
+CREATE TRIGGER employee_log
+AFTER INSERT
+ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_audit
+    VALUES (NEW.employee_id, 'New Employee Added');
+END;
+
+Explanation
+
+• Whenever a new employee is inserted,
+  a log entry is automatically added into employee_audit table.
+
+-------------------------------------------------------------------------------
+
+INSERT Example
+
+INSERT INTO employees
+VALUES (103, 'Arjun', 70000);
+
+-------------------------------------------------------------------------------
+
+Output in employee_audit Table
+
+103      New Employee Added
+
+Explanation
+
+• Trigger automatically executes after INSERT operation.
+
+-------------------------------------------------------------------------------
+
+Advantages of Triggers
+
+• Automates database tasks
+• Maintains data integrity
+• Helps in auditing and logging
+• Reduces manual operations
+• Enforces business rules
+
+-------------------------------------------------------------------------------
+
+Disadvantages of Triggers
+
+• Can slow database performance
+• Difficult to debug
+• Hidden execution may confuse developers
+• Excessive triggers increase complexity
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• Trigger executes automatically on table events.
+• Used with INSERT, UPDATE, and DELETE operations.
+• BEFORE and AFTER are common trigger types.
+• Helps maintain consistency and automation.
+• Trigger is associated with a specific table.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+27. What is a Stored Procedure?
+
+Answer
+
+A Stored Procedure in MySQL is a collection of SQL statements stored in the database that can be executed repeatedly.
+
+Stored Procedures help reduce code duplication and improve performance by reusing SQL logic.
+
+They are mainly used for automation, business logic, and complex database operations.
+
+-------------------------------------------------------------------------------
+
+Features of Stored Procedure
+
+• Collection of SQL statements
+• Stored inside database
+• Can be executed multiple times
+• Improves performance
+• Reduces repeated SQL code
+
+-------------------------------------------------------------------------------
+
+Why Stored Procedures are Used
+
+• Reuse SQL code
+• Improve database performance
+• Reduce network traffic
+• Simplify complex operations
+• Maintain business logic in database
+
+-------------------------------------------------------------------------------
+
+Syntax of Stored Procedure
+
+DELIMITER //
+
+CREATE PROCEDURE procedure_name()
+BEGIN
+    SQL statements;
+END //
+
+DELIMITER ;
+
+-------------------------------------------------------------------------------
+
+Example of Stored Procedure
+
+DELIMITER //
+
+CREATE PROCEDURE GetEmployees()
+BEGIN
+    SELECT * FROM employees;
+END //
+
+DELIMITER ;
+
+Explanation
+
+• Creates a stored procedure named GetEmployees.
+• Displays all employee records when executed.
+
+-------------------------------------------------------------------------------
+
+Executing Stored Procedure
+
+CALL GetEmployees();
+
+Explanation
+
+• Executes the stored procedure.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_ID      Employee_Name      Department      Salary
+101              Rahul              IT              60000
+102              Priya              HR              45000
+103              Arjun              Finance         70000
+
+-------------------------------------------------------------------------------
+
+Stored Procedure Example
+
+DELIMITER //
+
+CREATE PROCEDURE HighSalaryEmployees()
+BEGIN
+    SELECT employee_name, salary
+    FROM employees
+    WHERE salary > 50000;
+END //
+
+DELIMITER ;
+
+-------------------------------------------------------------------------------
+
+Executing Procedure
+
+CALL HighSalaryEmployees();
+
+Output
+
+Rahul      60000
+Arjun      70000
+
+Explanation
+
+• Displays employees whose salary is greater than 50000.
+
+-------------------------------------------------------------------------------
+
+Stored Procedure with Parameters
+
+DELIMITER //
+
+CREATE PROCEDURE EmployeeByDepartment(
+    IN dept_name VARCHAR(50)
+)
+BEGIN
+    SELECT *
+    FROM employees
+    WHERE department = dept_name;
+END //
+
+DELIMITER ;
+
+-------------------------------------------------------------------------------
+
+Executing Parameterized Procedure
+
+CALL EmployeeByDepartment('IT');
+
+Explanation
+
+• Displays employees belonging to IT department.
+
+-------------------------------------------------------------------------------
+
+Advantages of Stored Procedures
+
+• Faster execution
+• Reusable SQL code
+• Reduces code duplication
+• Improves security
+• Easier maintenance
+
+-------------------------------------------------------------------------------
+
+Disadvantages of Stored Procedures
+
+• Difficult to debug
+• Increased database load
+• Complex procedures are harder to manage
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• Stored Procedure is a group of SQL statements.
+• Stored inside database server.
+• Executed using CALL statement.
+• Supports input parameters.
+• Helps automate database operations.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+28. Explain the difference between UNION and UNION ALL.
+
+Answer
+
+UNION and UNION ALL are SQL operators used to combine results from two or more SELECT statements.
+
+The main difference is that UNION removes duplicate records, whereas UNION ALL includes all records including duplicates.
+
+-------------------------------------------------------------------------------
+
+UNION
+
+• Combines results from multiple SELECT statements
+• Removes duplicate rows
+• Returns only unique records
+• Slower because duplicate checking is performed
+
+-------------------------------------------------------------------------------
+
+UNION ALL
+
+• Combines results from multiple SELECT statements
+• Includes duplicate rows
+• Returns all records
+• Faster because duplicate checking is not performed
+
+-------------------------------------------------------------------------------
+
+Rules for UNION and UNION ALL
+
+• Number of columns must be same in all SELECT statements
+• Data types of columns should be compatible
+• Column order should be same
+
+-------------------------------------------------------------------------------
+
+Syntax of UNION
+
+SELECT column_name
+FROM table_name
+
+UNION
+
+SELECT column_name
+FROM table_name;
+
+-------------------------------------------------------------------------------
+
+Example of UNION
+
+SELECT department
+FROM employees
+
+UNION
+
+SELECT department
+FROM managers;
+
+Explanation
+
+• Combines department names from both tables.
+• Duplicate department names are removed.
+
+-------------------------------------------------------------------------------
+
+Syntax of UNION ALL
+
+SELECT column_name
+FROM table_name
+
+UNION ALL
+
+SELECT column_name
+FROM table_name;
+
+-------------------------------------------------------------------------------
+
+Example of UNION ALL
+
+SELECT department
+FROM employees
+
+UNION ALL
+
+SELECT department
+FROM managers;
+
+Explanation
+
+• Combines all department names including duplicates.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider two tables.
+
+Employees Table
+
+Department
+IT
+HR
+Finance
+
+Managers Table
+
+Department
+IT
+Admin
+
+-------------------------------------------------------------------------------
+
+UNION Example
+
+SELECT department
+FROM employees
+
+UNION
+
+SELECT department
+FROM managers;
+
+Output
+
+IT
+HR
+Finance
+Admin
+
+Explanation
+
+• Duplicate value IT appears only once.
+
+-------------------------------------------------------------------------------
+
+UNION ALL Example
+
+SELECT department
+FROM employees
+
+UNION ALL
+
+SELECT department
+FROM managers;
+
+Output
+
+IT
+HR
+Finance
+IT
+Admin
+
+Explanation
+
+• Duplicate value IT appears twice.
+
+-------------------------------------------------------------------------------
+
+Key Differences
+
+UNION
+• Removes duplicate rows
+• Returns unique records
+• Slower performance
+• Performs duplicate checking
+
+UNION ALL
+• Includes duplicate rows
+• Returns all records
+• Faster performance
+• No duplicate checking
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• UNION removes duplicate records.
+• UNION ALL keeps duplicate records.
+• UNION ALL is faster than UNION.
+• Column count and datatype must match.
+• Both are used to combine results from multiple SELECT queries.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+29. What is a Composite Key?
+
+Answer
+
+A Composite Key in MySQL is a combination of two or more columns used together to uniquely identify each row in a table.
+
+A single column alone cannot uniquely identify records, so multiple columns are combined to form a unique key.
+
+Composite Keys are commonly used in junction tables and many-to-many relationships.
+
+-------------------------------------------------------------------------------
+
+Features of Composite Key
+
+• Combination of multiple columns
+• Uniquely identifies each row
+• Prevents duplicate records
+• Used when one column is not sufficient
+• Can contain two or more columns
+
+-------------------------------------------------------------------------------
+
+Why Composite Key is Used
+
+• Ensures uniqueness using multiple columns
+• Maintains data integrity
+• Used in many-to-many relationships
+• Reduces duplicate data
+• Improves relational database design
+
+-------------------------------------------------------------------------------
+
+Syntax of Composite Key
+
+CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    PRIMARY KEY (column1, column2)
+);
+
+-------------------------------------------------------------------------------
+
+Example of Composite Key
+
+CREATE TABLE student_courses (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY (student_id, course_id)
+);
+
+Explanation
+
+• Combination of student_id and course_id uniquely identifies each record.
+• Duplicate combinations are not allowed.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider a Student_Courses Table.
+
+Student_ID      Course_ID
+101             C001
+101             C002
+102             C001
+
+-------------------------------------------------------------------------------
+
+Valid Insert
+
+INSERT INTO student_courses
+VALUES (101, 'C003');
+
+Explanation
+
+• Combination (101, C003) is unique.
+
+-------------------------------------------------------------------------------
+
+Invalid Insert
+
+INSERT INTO student_courses
+VALUES (101, 'C001');
+
+Output
+
+Error: Duplicate entry
+
+Explanation
+
+• Combination (101, C001) already exists.
+• Composite Key prevents duplicate combinations.
+
+-------------------------------------------------------------------------------
+
+Composite Key in Many-to-Many Relationship
+
+Students Table
+• student_id
+• student_name
+
+Courses Table
+• course_id
+• course_name
+
+Student_Courses Table
+• student_id
+• course_id
+
+Explanation
+
+• One student can enroll in many courses.
+• One course can have many students.
+• Composite Key helps manage relationship efficiently.
+
+-------------------------------------------------------------------------------
+
+Advantages of Composite Key
+
+• Ensures uniqueness across multiple columns
+• Maintains data consistency
+• Useful in relationship tables
+• Prevents duplicate combinations
+
+-------------------------------------------------------------------------------
+
+Disadvantages of Composite Key
+
+• Increases query complexity
+• Larger key size affects performance
+• Difficult to manage in large databases
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• Composite Key combines multiple columns.
+• Used when single column is not unique.
+• Defined using PRIMARY KEY(column1, column2).
+• Commonly used in junction tables.
+• Helps maintain relational integrity.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+30. What is the difference between the = and LIKE operators?
+
+Answer
+
+The = operator and LIKE operator are used in MySQL to compare values, but they work differently.
+
+The = operator checks for exact matches, whereas the LIKE operator is used for pattern matching.
+
+-------------------------------------------------------------------------------
+
+= Operator
+
+• Used for exact value comparison
+• Matches complete value exactly
+• Cannot perform pattern matching
+• Faster than LIKE in most cases
+
+-------------------------------------------------------------------------------
+
+LIKE Operator
+
+• Used for pattern matching
+• Searches partial matches
+• Works with wildcard characters
+• Commonly used in text searching
+
+-------------------------------------------------------------------------------
+
+Wildcard Characters in LIKE
+
+% Symbol
+• Represents zero or more characters
+
+_ Symbol
+• Represents a single character
+
+-------------------------------------------------------------------------------
+
+Syntax of = Operator
+
+SELECT column_name
+FROM table_name
+WHERE column_name = value;
+
+Example
+
+SELECT *
+FROM employees
+WHERE department = 'IT';
+
+Explanation
+
+• Displays employees whose department is exactly IT.
+
+-------------------------------------------------------------------------------
+
+Syntax of LIKE Operator
+
+SELECT column_name
+FROM table_name
+WHERE column_name LIKE pattern;
+
+Example
+
+SELECT *
+FROM employees
+WHERE employee_name LIKE 'R%';
+
+Explanation
+
+• Displays employee names starting with letter R.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_Name      Department
+Rahul              IT
+Priya              HR
+Ramesh             Finance
+Arjun              IT
+Rohit              HR
+
+-------------------------------------------------------------------------------
+
+= Operator Example
+
+SELECT *
+FROM employees
+WHERE department = 'IT';
+
+Output
+
+Rahul      IT
+Arjun      IT
+
+Explanation
+
+• Only rows with exact department value IT are displayed.
+
+-------------------------------------------------------------------------------
+
+LIKE Operator Example
+
+SELECT *
+FROM employees
+WHERE employee_name LIKE 'R%';
+
+Output
+
+Rahul
+Ramesh
+Rohit
+
+Explanation
+
+• Displays employee names starting with R.
+
+-------------------------------------------------------------------------------
+
+LIKE with % Wildcard
+
+SELECT *
+FROM employees
+WHERE employee_name LIKE '%a%';
+
+Explanation
+
+• Displays names containing letter a.
+
+-------------------------------------------------------------------------------
+
+LIKE with _ Wildcard
+
+SELECT *
+FROM employees
+WHERE employee_name LIKE '_a%';
+
+Explanation
+
+• Displays names where second letter is a.
+
+-------------------------------------------------------------------------------
+
+Key Differences
+
+= Operator
+• Exact value matching
+• No wildcard support
+• Faster performance
+• Used for precise comparison
+
+LIKE Operator
+• Pattern matching
+• Supports wildcards
+• Slightly slower
+• Used for searching patterns
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• = operator checks exact matches only.
+• LIKE operator performs pattern matching.
+• % represents multiple characters.
+• _ represents single character.
+• LIKE is commonly used for searching text data.
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
