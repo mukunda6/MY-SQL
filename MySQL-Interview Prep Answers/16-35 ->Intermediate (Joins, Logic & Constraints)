@@ -321,3 +321,328 @@ Important Point
 • HAVING is mostly used with aggregate functions like COUNT(), SUM(), AVG().
 
 -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+19. What are Aggregate Functions? List five examples.
+
+ Answer
+
+Aggregate Functions in MySQL are used to perform calculations on multiple rows of data and return a single value.
+
+These functions are mainly used with numerical data and are often combined with the GROUP BY clause.
+
+-------------------------------------------------------------------------------
+
+Common Aggregate Functions
+
+COUNT()
+• Counts total number of rows
+
+SUM()
+• Calculates total sum of values
+
+AVG()
+• Finds average value
+
+MAX()
+• Finds highest value
+
+MIN()
+• Finds lowest value
+
+-------------------------------------------------------------------------------
+
+Syntax of COUNT()
+
+SELECT COUNT(column_name)
+FROM table_name;
+
+Example
+
+SELECT COUNT(*) FROM employees;
+
+Explanation
+• Counts total number of employees in the table.
+
+-------------------------------------------------------------------------------
+
+Syntax of SUM()
+
+SELECT SUM(column_name)
+FROM table_name;
+
+Example
+
+SELECT SUM(salary) FROM employees;
+
+Explanation
+• Calculates total salary of all employees.
+
+-------------------------------------------------------------------------------
+
+Syntax of AVG()
+
+SELECT AVG(column_name)
+FROM table_name;
+
+Example
+
+SELECT AVG(salary) FROM employees;
+
+Explanation
+• Finds average salary of employees.
+
+-------------------------------------------------------------------------------
+
+Syntax of MAX()
+
+SELECT MAX(column_name)
+FROM table_name;
+
+Example
+
+SELECT MAX(salary) FROM employees;
+
+Explanation
+• Displays highest salary among employees.
+
+-------------------------------------------------------------------------------
+
+Syntax of MIN()
+
+SELECT MIN(column_name)
+FROM table_name;
+
+Example
+
+SELECT MIN(salary) FROM employees;
+
+Explanation
+• Displays lowest salary among employees.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_Name      Department      Salary
+Rahul              IT              60000
+Priya              HR              45000
+Arjun              IT              70000
+Sneha              Finance         55000
+Kiran              IT              65000
+
+-------------------------------------------------------------------------------
+
+COUNT() Example
+
+SELECT COUNT(*) FROM employees;
+
+Output
+
+5
+
+Explanation
+• Total number of employees is 5.
+
+-------------------------------------------------------------------------------
+
+SUM() Example
+
+SELECT SUM(salary) FROM employees;
+
+Output
+
+295000
+
+Explanation
+• Displays total salary of all employees.
+
+-------------------------------------------------------------------------------
+
+AVG() Example
+
+SELECT AVG(salary) FROM employees;
+
+Output
+
+59000
+
+Explanation
+• Displays average salary of employees.
+
+-------------------------------------------------------------------------------
+
+MAX() Example
+
+SELECT MAX(salary) FROM employees;
+
+Output
+
+70000
+
+Explanation
+• Displays highest salary.
+
+-------------------------------------------------------------------------------
+
+MIN() Example
+
+SELECT MIN(salary) FROM employees;
+
+Output
+
+45000
+
+Explanation
+• Displays lowest salary.
+
+-------------------------------------------------------------------------------
+
+Aggregate Functions with GROUP BY
+
+SELECT department, AVG(salary)
+FROM employees
+GROUP BY department;
+
+Explanation
+• Displays average salary department-wise.
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• Aggregate functions work on multiple rows.
+• They return a single value.
+• Mostly used with GROUP BY clause.
+• Useful for reports and data analysis.
+• Common aggregate functions are COUNT(), SUM(), AVG(), MAX(), and MIN().
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+20. What is a Subquery?
+
+Answer
+
+A Subquery in MySQL is a query written inside another query.
+
+The inner query executes first, and its result is used by the outer query.
+
+Subqueries are commonly used with SELECT, INSERT, UPDATE, and DELETE statements.
+
+-------------------------------------------------------------------------------
+
+Features of Subquery
+
+• Query inside another query
+• Also called Nested Query
+• Executes from inner query to outer query
+• Helps perform complex operations easily
+• Can be used with WHERE, FROM, and HAVING clauses
+
+-------------------------------------------------------------------------------
+
+Syntax of Subquery
+
+SELECT column_name
+FROM table_name
+WHERE column_name operator (
+    SELECT column_name
+    FROM table_name
+    WHERE condition
+);
+
+-------------------------------------------------------------------------------
+
+Example of Subquery
+
+SELECT employee_name
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+
+Explanation
+
+• Inner query finds average salary.
+• Outer query displays employees whose salary is greater than average salary.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_Name      Department      Salary
+Rahul              IT              60000
+Priya              HR              45000
+Arjun              IT              70000
+Sneha              Finance         55000
+Kiran              IT              65000
+
+-------------------------------------------------------------------------------
+
+Subquery Example
+
+SELECT employee_name
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+
+Output
+
+Rahul
+Arjun
+Kiran
+
+Explanation
+
+• Average salary is 59000.
+• Employees earning more than average salary are displayed.
+
+-------------------------------------------------------------------------------
+
+Types of Subqueries
+
+Single Row Subquery
+• Returns only one row
+
+Multiple Row Subquery
+• Returns multiple rows
+
+Correlated Subquery
+• Depends on outer query for execution
+
+Nested Subquery
+• Contains another subquery inside it
+
+-------------------------------------------------------------------------------
+
+Subquery with IN Operator
+
+SELECT employee_name
+FROM employees
+WHERE department IN (
+    SELECT department
+    FROM departments
+    WHERE location = 'Hyderabad'
+);
+
+Explanation
+
+• Displays employees working in departments located in Hyderabad.
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• Subquery is written inside parentheses ().
+• Inner query executes before outer query.
+• Used to simplify complex SQL queries.
+• Can return single or multiple rows.
+• Commonly used with SELECT, INSERT, UPDATE, and DELETE statements.
+
+-------------------------------------------------------------------------------
