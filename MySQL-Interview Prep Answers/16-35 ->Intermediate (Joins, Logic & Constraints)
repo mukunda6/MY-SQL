@@ -2271,3 +2271,164 @@ Important Points
 
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
+31. How do you find the second highest salary in an employees table?
+
+Answer
+
+The second highest salary in an employees table can be found using different SQL methods such as subqueries, LIMIT, or DENSE_RANK().
+
+The most common method is using a subquery with MAX() function.
+
+-------------------------------------------------------------------------------
+
+Method 1: Using MAX() and Subquery
+
+Syntax
+
+SELECT MAX(salary)
+FROM employees
+WHERE salary < (
+    SELECT MAX(salary)
+    FROM employees
+);
+
+-------------------------------------------------------------------------------
+
+Example
+
+SELECT MAX(salary)
+FROM employees
+WHERE salary < (
+    SELECT MAX(salary)
+    FROM employees
+);
+
+Explanation
+
+• Inner query finds highest salary.
+• Outer query finds maximum salary smaller than highest salary.
+• Result gives second highest salary.
+
+-------------------------------------------------------------------------------
+
+Real-Time Example
+
+Consider an Employee Table.
+
+Employee_Name      Salary
+Rahul              60000
+Priya              45000
+Arjun              70000
+Sneha              55000
+Kiran              65000
+
+-------------------------------------------------------------------------------
+
+Execution Process
+
+Step 1
+
+SELECT MAX(salary)
+FROM employees;
+
+Output
+
+70000
+
+Explanation
+
+• Highest salary is 70000.
+
+-------------------------------------------------------------------------------
+
+Step 2
+
+SELECT MAX(salary)
+FROM employees
+WHERE salary < 70000;
+
+Output
+
+65000
+
+Explanation
+
+• Highest salary below 70000 is 65000.
+• Therefore, second highest salary is 65000.
+
+-------------------------------------------------------------------------------
+
+Method 2: Using ORDER BY and LIMIT
+
+Syntax
+
+SELECT DISTINCT salary
+FROM employees
+ORDER BY salary DESC
+LIMIT 1 OFFSET 1;
+
+-------------------------------------------------------------------------------
+
+Example
+
+SELECT DISTINCT salary
+FROM employees
+ORDER BY salary DESC
+LIMIT 1 OFFSET 1;
+
+Output
+
+65000
+
+Explanation
+
+• Salaries are sorted in descending order.
+• OFFSET 1 skips highest salary.
+• LIMIT 1 fetches second highest salary.
+
+-------------------------------------------------------------------------------
+
+Method 3: Using DENSE_RANK()
+
+Syntax
+
+SELECT salary
+FROM (
+    SELECT salary,
+    DENSE_RANK() OVER (ORDER BY salary DESC) AS rank_num
+    FROM employees
+) AS ranked_salaries
+WHERE rank_num = 2;
+
+-------------------------------------------------------------------------------
+
+Explanation
+
+• DENSE_RANK() assigns ranks to salaries.
+• Salary with rank 2 becomes second highest salary.
+
+-------------------------------------------------------------------------------
+
+Advantages of Different Methods
+
+MAX() with Subquery
+• Simple and commonly used
+
+ORDER BY with LIMIT
+• Easy to understand
+
+DENSE_RANK()
+• Useful for advanced ranking queries
+
+-------------------------------------------------------------------------------
+
+Important Points
+
+• MAX() with subquery is most popular method.
+• DISTINCT avoids duplicate salary values.
+• ORDER BY sorts salaries in descending order.
+• DENSE_RANK() handles duplicate salaries efficiently.
+• Multiple methods can achieve same result.
+
+-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
